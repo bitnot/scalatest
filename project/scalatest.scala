@@ -4,7 +4,7 @@ import java.net.{URL, URLClassLoader}
 import java.io.PrintWriter
 import scala.io.Source
 import com.typesafe.sbt.osgi.SbtOsgi._
-import com.typesafe.sbt.SbtPgp._
+import com.typesafe.sbt.SbtPgp.autoImport._
 
 object ScalatestBuild extends Build {
 
@@ -122,11 +122,9 @@ object ScalatestBuild extends Build {
       // if scala 2.11+ is used, add dependency on scala-xml module
       case Some((2, scalaMajor)) if scalaMajor >= 11 =>
         Seq(
-          "org.scala-lang.modules" %% "scala-xml" % "1.0.2",
-          "org.scalacheck" %% "scalacheck" % "1.11.3" % "optional"
+          "org.scala-lang.modules" %% "scala-xml" % "1.0.2"
         )
-      case _ =>
-        Seq("org.scalacheck" %% "scalacheck" % "1.11.0" % "optional")
+      case _ => Nil
     }
 
   def scalaLibraries(theScalaVersion: String) =
@@ -240,6 +238,8 @@ object ScalatestBuild extends Build {
         "Bundle-Vendor" -> "Artima, Inc.",
         "Main-Class" -> "org.scalatest.tools.Runner"
       )
+   ).dependsOn(
+     ProjectRef(uri("git://github.com/non/scalacheck.git#topic/immutable-rng"), "jvm")
    )
 
   lazy val scalactic = Project("scalactic", file("genscalactic"))

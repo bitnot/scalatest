@@ -339,8 +339,6 @@ trait Configuration {
       val maxSize: Int = 
         if (pmaxSize != -1) pmaxSize else config.maxSize
 
-      val rng: scala.util.Random = Gen.Parameters.default.rng
-
       val workers: Int = 
         if (pworkers != -1) pworkers else config.workers
 
