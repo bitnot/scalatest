@@ -6,7 +6,7 @@ import scala.io.Source
 import com.typesafe.sbt.osgi.OsgiKeys
 import com.typesafe.sbt.osgi.SbtOsgi
 import com.typesafe.sbt.osgi.SbtOsgi.autoImport._
-import com.typesafe.sbt.SbtPgp.autoImport._
+import com.jsuereth.sbtpgp.SbtPgp.autoImport._
 
 //import sbtcrossproject.CrossPlugin.autoImport._
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
@@ -602,6 +602,7 @@ object ScalatestBuild extends BuildCommons with DottyBuild with NativeBuild with
     ).dependsOn(scalacticMacro % "compile-internal, test-internal", scalactic % "compile-internal", scalatest % "compile-internal")
 
   lazy val rootProject = Project("root", file(".")).aggregate(scalacticMacro, scalactic, scalatest, commonTest, scalacticTest, scalatestTest)
+  //lazy val rootProject = Project("root", file(".")).aggregate(scalacticDotty)
 
   lazy val scalatestCompatible = Project("scalatestCompatible", file("scalatest-compatible"))
     .enablePlugins(SbtOsgi)
@@ -611,6 +612,7 @@ object ScalatestBuild extends BuildCommons with DottyBuild with NativeBuild with
       projectTitle := "ScalaTest Compatible",
       name := "scalatest-compatible",
       organization := "org.scalatest",
+      version := "3.1.0",
       javaSourceManaged := target.value / "java",
       autoScalaLibrary := false, 
       crossPaths := false, // disable using the Scala version in output paths and artifacts

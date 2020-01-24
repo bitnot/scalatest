@@ -27,7 +27,7 @@ trait DottyBuild { this: BuildCommons =>
     .settings(scalacticDocSettings: _*)
     .settings(
       projectTitle := "Scalactic",
-      organization := "org.scalactic",
+      organization := "dev.travisbrown",
       moduleName := "scalactic",
       initialCommands in console := "import org.scalactic._",
       sourceGenerators in Compile += {
@@ -54,7 +54,8 @@ trait DottyBuild { this: BuildCommons =>
       //docTaskSetting,
       publishArtifact in (Compile, packageDoc) := false, // Temporary disable publishing of doc, can't get it to build.
       mimaPreviousArtifacts := Set(organization.value %% name.value % previousReleaseVersion),
-      mimaCurrentClassfiles := (classDirectory in Compile).value.getParentFile / (name.value + "_" + scalaBinaryVersion.value + "-" + releaseVersion + ".jar")
+      mimaCurrentClassfiles := (classDirectory in Compile).value.getParentFile / (name.value + "_" + scalaBinaryVersion.value + "-" + releaseVersion + ".jar"),
+      //sonatypeSessionName := "[sbt-sonatype] ${name.value}-${scalaBinaryVersion.value}-${version.value}"
     ).settings(osgiSettings: _*).settings(
     OsgiKeys.exportPackage := Seq(
       "org.scalactic",
@@ -84,7 +85,7 @@ trait DottyBuild { this: BuildCommons =>
     .settings(dottySettings: _*)
     .settings(
       projectTitle := "ScalaTest",
-      organization := "org.scalatest",
+      organization := "dev.travisbrown",
       moduleName := "scalatest",
       initialCommands in console := """|import org.scalatest._
                                        |import org.scalactic._
